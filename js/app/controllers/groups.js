@@ -10,6 +10,7 @@ define([
 
 	var GroupsController = Marionette.Controller.extend({
 		initialize: function() {
+			TurfApp.vent.trigger('startLoadingView');
 
 			TurfApp.vent.on("groups:geolocationSuccess", this.successfulGeolocation, this);
 			this.model = new Backbone.Model();
@@ -40,14 +41,15 @@ define([
 	            url: 'http://192.168.0.100:3001/api/validgroups',
 	            dataType: 'JSON',
 	            data: {
-	                position: {
-	                    latitude: position.coords.latitude,
-	                    longitude: position.coords.longitude
-	                }
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
 	            }
 	        });
 	        // After fetching the valid chat groups, create model to pass to view.
 	        $.when(groupsReq).then(function(data) {
+
+	        	TurfApp.vent.trigger('closeLoadingView');
+
 	        	console.log('fetched valid groups');
 	        	var groupsCollection = new Backbone.Collection();
 	        	_.each(data, function(group) {

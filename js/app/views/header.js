@@ -3,29 +3,34 @@ define([
 	'jquery',
 	'backbone',
 	'marionette',
+	'jquery.bootstrap',
 	'text!../templates/Header.html'
-], function(namespace, $, Backbone, Marionette, HeaderTemplate) {
+], function(namespace, $, Backbone, Marionette, Bootstrap, HeaderTemplate) {
 
 	var HeaderView = Backbone.Marionette.ItemView.extend({
 		template: _.template(HeaderTemplate),
 		events: {
-			'click .Menu' : 'openMenu'
+			'touchstart .Menu' : 'openMenu',
+			'touchstart .Settings' : 'openSettingsMenu'
 		},
 
 		onShow:function() {
 			console.log("onShow header view");
 			console.log($('body'));
-
+			$('.Settings').dropdown();
 		},
 
 		openMenu: function(e) {
 			if ($('#main-navigation').attr('data-opened')) {
 				$('#main-navigation').removeAttr('data-opened');
-				window.location = "#";
 			} else {
-				window.location = "#main-navigation";
 				$('#main-navigation').attr('data-opened', 'true');
 			}
+		},
+
+		openSettingsMenu: function(e) {
+			console.log('open settings menu');
+			$('.Settings').dropdown('toggle');
 		}
 	});
 

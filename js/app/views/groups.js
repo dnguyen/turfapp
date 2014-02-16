@@ -17,7 +17,7 @@ define([
 
 		onShow: function() {
 			var groupsFragment = document.createDocumentFragment();
-			console.log(this.model.get('groups'));
+			//console.log(this.model.get('groups'));
 			for (var i = 0; i < 30; i++) {
 			this.model.get('groups').forEach(function(group) {
 				var groupItemView = new GroupItemView({ model : group });

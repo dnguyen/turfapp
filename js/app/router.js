@@ -5,6 +5,9 @@ define([
 	var MainRouter = Backbone.Marionette.AppRouter.extend({
 		appRoutes: {
 			'' : 'homePage',
+			'login' : 'loginPage',
+			'logout' : 'logout',
+			'groups' : 'groupsPage',
 			'group/*id' : 'groupPage'
 		}
 	});
