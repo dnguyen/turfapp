@@ -16,6 +16,7 @@ define([
 
 		initialize: function() {
 			this.model.get('members').on('add', this.addMembers, this);
+			this.model.get('messages').on('add', this.addMessages, this);
 		},
 
 		onShow: function() {
@@ -29,6 +30,11 @@ define([
 
 		addMembers: function(model) {
 			$('.members').append('<p>' + model.get('username') + '</p>');
+		},
+
+		addMessages: function(model) {
+			$('.messages').append('<p>' + model.get('username') + ':</p><p>' + model.get('message') + '</p>');
+
 		},
 
 		onClose: function() {

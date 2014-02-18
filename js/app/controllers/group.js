@@ -29,6 +29,14 @@ define([
 					});
 					that.model.get('members').add(newUserModel);
 				});
+
+				_.each(data.attributes.messages, function(message) {
+					var newMessageModel = new Backbone.Model({
+						username: message.user.username,
+						message: message.message
+					});
+					that.model.get('messages').add(newMessageModel);
+				});
 			});
 
 			socket.on('user_joined_room', function(data) {
@@ -41,6 +49,17 @@ define([
 					username: data.username
 				});
 				that.model.get('members').add(newUserModel);
+			});
+
+			socket.on('new_message', function(data) {
+				console.group('Recv: new_message');
+				console.log(data);
+				console.groupEnd();
+				var newMessageModel = new Backbone.Model({
+					username: data.user.username,
+					message: data.message
+				});
+				that.model.get('messages').add(newMessageModel);
 			});
 
 			this.model = new Backbone.Model({
@@ -92,8 +111,9 @@ define([
 			console.log(this);
 			console.groupEnd();
 
-			this.socket.emit('chat_message', {
-				id: this.model.get('id'),
+			socket.emit('send_message', {
+				uid: JSON.parse(localStorage.getItem('userData')).uid,
+				groupid: this.model.get('id'),
 				message: data
 			});
 		}

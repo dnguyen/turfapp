@@ -36,6 +36,10 @@ define([
 
 				$.when(loginReq).then(function(data) {
 					console.log('successful auth with token and user id');
+					namespace.socket.emit('connect_', {
+						uid: userData.uid,
+						token: userData.token
+					});
 					window.location = "#/groups";
 				}).fail(function(err, status, data) {
 					console.log('Failed to auth token and user id');
