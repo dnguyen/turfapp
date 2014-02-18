@@ -21,6 +21,7 @@ define([
 		},
 
 		openMenu: function(e) {
+			e.preventDefault();
 			if ($('#main-navigation').attr('data-opened')) {
 				$('#main-navigation').removeAttr('data-opened');
 			} else {
@@ -29,6 +30,7 @@ define([
 		},
 
 		openSettingsMenu: function(e) {
+			e.preventDefault();
 			console.log('open settings menu');
 			$('.Settings').dropdown('toggle');
 		}

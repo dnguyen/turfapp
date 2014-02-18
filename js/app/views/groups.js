@@ -14,6 +14,9 @@ define([
 		tagName: 'div',
 		className: 'groups',
 		template: _.template(GroupsTemplate),
+		events: {
+			'touchstart .group' : 'open',
+		},
 
 		onShow: function() {
 			var groupsFragment = document.createDocumentFragment();
@@ -23,9 +26,18 @@ define([
 				var groupItemView = new GroupItemView({ model : group });
 				groupsFragment.appendChild(groupItemView.render().el);
 			});
-		}
+			}
 
 			$(this.el).append(groupsFragment);
+		},
+
+		onClose: function() {
+			this.controller.close();
+		},
+
+		open: function(e) {
+			//e.preventDefault();
+			console.log('clicked open group');
 		}
 	});
 

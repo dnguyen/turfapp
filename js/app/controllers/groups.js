@@ -6,34 +6,54 @@ define([
 	'../views/groups'
 ], function(namespace, _, Backbone, Marionette, GroupsView) {
 
-	var TurfApp = namespace.app;
+	var TurfApp = namespace.app,
+		cache = namespace.cache;
 
 	var GroupsController = Marionette.Controller.extend({
 		initialize: function() {
+			console.group("Initializing new GroupsController");
 			TurfApp.vent.trigger('startLoadingView');
 
 			TurfApp.vent.on("groups:geolocationSuccess", this.successfulGeolocation, this);
 			this.model = new Backbone.Model();
 
-            navigator.geolocation.getCurrentPosition(
-                function(position) {
-                	TurfApp.vent.trigger("groups:geolocationSuccess", position);
-                },
-                function(error) {
-                    alert(error.message);
-                },
-                {enableHighAccuracy: true}
-            );
+	        console.groupEnd();
+	        this.getPosition();
 		},
 
 		render: function() {
 			console.log("groupsController render");
 			console.log('rendering model');
-        	TurfApp.content.show(new GroupsView({ model: this.model }));
+			var newGroupsView = new GroupsView({ model: this.model });
+			newGroupsView.controller = this;
+        	TurfApp.content.show(newGroupsView);
+		},
+
+		onClose: function() {
+			console.log('Closing GroupsController');
+			TurfApp.vent.off('groups:geolocationSuccess')
+		},
+
+		getPosition: function() {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                	cache.store('geolocation', position);
+                	TurfApp.vent.trigger("groups:geolocationSuccess", position);
+                },
+                function(error) {
+                    alert(error.message);
+                },
+                {
+                	maximumAge: 60000,
+                	enableHighAccuracy: true
+                }
+            );
 		},
 
 		successfulGeolocation: function(position) {
+			console.group('Successful Geolocation');
 	        console.log(position);
+	        console.groupEnd();
 	        var that = this;
 	        //alert('Lat: ' + position.coords.latitude + '\n' + 'Longitude: ' + position.coords.longitude);
 	        var groupsReq = $.ajax({

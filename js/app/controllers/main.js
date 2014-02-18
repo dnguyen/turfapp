@@ -49,8 +49,9 @@ define([
 
 		groupsPage: function() {
 			var groupsControllerRoute = require(['controllers/groups'], function(GroupsController) {
+				console.group('groupsPage Route');
+				console.groupEnd();
 				var groupsController = new GroupsController();
-				groupsController.initialize();
 			});
 		},
 
