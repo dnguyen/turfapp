@@ -10,6 +10,10 @@ define([
 		// Create a socket to the server as soon as we launch.
 		socket: io.connect('http://192.168.0.100:3001'),
 
+		config : {
+			server: 'http://192.168.0.100:3001/'
+		},
+
 		cache: {
 			storage : { },
 
