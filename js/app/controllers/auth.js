@@ -2,8 +2,9 @@ define([
 	'namespace',
 	'backbone',
 	'marionette',
-	'../views/login'
-], function(namespace, Backbone, Marionette, LoginView) {
+	'../views/login',
+	'../views/register'
+], function(namespace, Backbone, Marionette, LoginView, RegisterView) {
 
 	var TurfApp = namespace.app;
 
@@ -14,6 +15,11 @@ define([
 		renderLoginView: function() {
 			var loginView = new LoginView();
 			TurfApp.content.show(loginView);
+		},
+
+		renderRegisterView: function() {
+			var registerView = new RegisterView();
+			TurfApp.content.show(registerView);
 		}
 	});
 

@@ -6,6 +6,7 @@ define([
 		appRoutes: {
 			'' : 'homePage',
 			'login' : 'loginPage',
+			'register' : 'registerPage',
 			'logout' : 'logout',
 			'groups' : 'groupsPage',
 			'group/*id' : 'groupPage'

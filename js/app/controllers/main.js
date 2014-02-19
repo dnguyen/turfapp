@@ -72,6 +72,13 @@ define([
 			});
 		},
 
+		registerPage: function() {
+			var AuthControllerRoute = require(['controllers/auth'], function(AuthController) {
+				var authController = new AuthController();
+				authController.renderRegisterView();
+			});
+		},
+
 		logout: function() {
 			localStorage.removeItem('userData');
 			//socket.disconnect();

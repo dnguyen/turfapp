@@ -44,8 +44,10 @@ define([
                     alert(error.message);
                 },
                 {
-                	maximumAge: 60000,
-                	enableHighAccuracy: true
+                	maximumAge: 60000
+                	// Disable high accuracy for now, caused really long load times.
+                	// will need to do more testing with different locations later.
+                	//enableHighAccuracy: true
                 }
             );
 		},

@@ -15,7 +15,7 @@ define([
 		className: 'groups',
 		template: _.template(GroupsTemplate),
 		events: {
-			'touchstart .group' : 'open',
+			'touchstart .group' : 'touchGroup',
 		},
 
 		onShow: function() {
@@ -35,9 +35,16 @@ define([
 			this.controller.close();
 		},
 
-		open: function(e) {
-			//e.preventDefault();
+		touchGroup: function(e) {
+			//$(e.currentTarget).css('background', '')
 			console.log('clicked open group');
+			$(e.currentTarget).on('touchend', function(endEvent) {
+				console.log('touchend');
+				var groupId = $(e.currentTarget).attr('data-group-id');
+				window.location = '#/group/' + groupId;
+				$(e.currentTarget).off('touchend');
+			});
+
 		}
 	});
 
