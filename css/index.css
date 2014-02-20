@@ -187,6 +187,16 @@ body {
     height: 55px;
 }
 
+.container--centered {
+    margin: 25px auto 0 auto;
+    text-align: center;
+    width: 200px;
+}
+
+.container--centered .message {
+    text-align: center;
+}
+
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
 }
@@ -196,11 +206,6 @@ body {
  * Created By: Ahmed Bouhuolia
  * Twitter: http://twitter.com/abouolia
  */
-
-.spinner-container {
-    margin: 0 auto 0 auto;
-    text-align: center;
-}
 
 .loading:after {
     border-width: 0 3px 0 0;

@@ -35,7 +35,6 @@ define([
 		},
 
 		addMessages: function(model) {
-			//$('.messages').append('<p>' + model.get('username') + ':</p><p>' + model.get('message') + '</p>');
 			var messageItemModel = new Backbone.Model({
 				type: model.get('type'),
 				username: model.get('username'),

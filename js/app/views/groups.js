@@ -41,7 +41,7 @@ define([
 			$(e.currentTarget).on('touchend', function(endEvent) {
 				console.log('touchend');
 				var groupId = $(e.currentTarget).attr('data-group-id');
-				window.location = '#/group/' + groupId;
+				TurfApp.vent.trigger('groups:joinGroup', { groupid: groupId });
 				$(e.currentTarget).off('touchend');
 			});
 

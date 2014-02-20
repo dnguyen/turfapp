@@ -6,7 +6,7 @@ define([
 ], function(_, Backbone, Marionette, LoadingTemplate) {
 
 	var LoadingView = Backbone.Marionette.ItemView.extend({
-		className: 'spinner-container',
+		className: 'container--centered',
 		template: _.template(LoadingTemplate)
 	});
 
