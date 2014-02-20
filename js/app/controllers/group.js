@@ -5,11 +5,28 @@ define([
 	'backbone',
 	'marionette',
 	'socket.io',
+	'validator',
 	'../views/group'
-], function(namespace, $, _, Backbone, Marionette, io, GroupView) {
+], function(namespace, $, _, Backbone, Marionette, io, validator, GroupView) {
 
 	var TurfApp = namespace.app,
 		socket = namespace.socket;
+
+	function formatMessage(message) {
+		console.log('formatting: ' + message);
+		if (validator.isURL(message)) {
+			console.log('isurl');
+			var fileExt = message.split('.').pop();
+			if (fileExt === 'jpg' || fileExt === 'jpeg' || fileExt === 'png' || fileExt === 'gif') {
+				console.log('File extension: ' + fileExt);
+				return '<div class="medium-thumb"><a href="' + message + '" target="_system"><img src="' + message +'"/></a></div>';
+			} else {
+				return '<a href="' + message + '">' + message + '</a>';
+			}
+		} else {
+			return message;
+		}
+	};
 
 	var GroupController = Marionette.Controller.extend({
 
@@ -31,12 +48,16 @@ define([
 
 					that.model.get('members').add(newUserModel);
 				});
-
 				_.each(data.attributes.messages, function(message) {
+					console.group('formatting ' + message.message);
+
+					console.log(validator.isURL(message.message));
+					//console.log('after replace: ' + message.message.replace(' ', ''));
+					console.groupEnd();
 					var newMessageModel = new Backbone.Model({
 						type: (message.user.uid === userData.uid) ? 'reply' : 'recv',
 						username: message.user.username,
-						message: message.message
+						message: formatMessage(message.message)
 					});
 
 					that.model.get('messages').add(newMessageModel);

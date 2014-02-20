@@ -176,6 +176,12 @@ body {
     float: right;
 }
 
+.message .medium-thumb img {
+    border: 3px solid #EEE;
+    max-width: 150px;
+    max-height: 150px;
+}
+
 .controls {
     padding: 10px 5px 10px 5px;
     position: fixed;

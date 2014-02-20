@@ -11,7 +11,6 @@ define([
 		},
 
 		initialize: function() {
-			this.className = 'message ' + this.model.get('type');
 		},
 
 		onRender: function() {

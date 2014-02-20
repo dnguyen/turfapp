@@ -8,7 +8,8 @@ require.config({
         "backbone.babysitter" : "../lib/backbone.babysitter/lib/backbone.babysitter.min",
         text : "../lib/requirejs-text/text",
         'jquery.bootstrap' : "../lib/bootstrap.min",
-        'socket.io' : '../lib/socket.io/node_modules/socket.io-client/dist/socket.io.min'
+        'socket.io' : '../lib/socket.io/node_modules/socket.io-client/dist/socket.io.min',
+        validator: '../lib/validator/validator.min'
     },
     shim : {
         jquery : {
