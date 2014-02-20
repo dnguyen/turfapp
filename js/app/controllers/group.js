@@ -16,7 +16,8 @@ define([
 		initialize: function(options) {
 
 			console.log("initialize group controller: " + options.id);
-			var that = this;
+			var that = this,
+				userData = JSON.parse(localStorage.getItem('userData'));
 
 			socket.on('join_room', function(data) {
 				console.group('Recv: join_room confirmation');
@@ -27,14 +28,17 @@ define([
 						uid: user.uid,
 						username: user.username
 					});
+
 					that.model.get('members').add(newUserModel);
 				});
 
 				_.each(data.attributes.messages, function(message) {
 					var newMessageModel = new Backbone.Model({
+						type: (message.user.uid === userData.uid) ? 'reply' : 'recv',
 						username: message.user.username,
 						message: message.message
 					});
+
 					that.model.get('messages').add(newMessageModel);
 				});
 			});
@@ -56,6 +60,7 @@ define([
 				console.log(data);
 				console.groupEnd();
 				var newMessageModel = new Backbone.Model({
+					type: (data.user.uid === userData.uid) ? 'reply' : 'recv',
 					username: data.user.username,
 					message: data.message
 				});
@@ -88,6 +93,8 @@ define([
 					name: group.name,
 					radius: group.radius
 				});
+
+				TurfApp.vent.trigger('header:changeTitle', group.name);
 
 				that.render();
 			});

@@ -7,6 +7,8 @@ define([
 	'text!../templates/Header.html'
 ], function(namespace, $, Backbone, Marionette, Bootstrap, HeaderTemplate) {
 
+	var TurfApp = namespace.app;
+
 	var HeaderView = Backbone.Marionette.ItemView.extend({
 		template: _.template(HeaderTemplate),
 		events: {
@@ -14,10 +16,16 @@ define([
 			'touchstart .Settings' : 'openSettingsMenu'
 		},
 
+		initialize: function() {
+			TurfApp.vent.on('header:changeTitle', this.changeTitle, this);
+		},
+
 		onShow:function() {
-			console.log("onShow header view");
-			console.log($('body'));
 			$('.Settings').dropdown();
+		},
+
+		changeTitle: function(title) {
+			$('.brand .title').text(title);
 		},
 
 		openMenu: function(e) {

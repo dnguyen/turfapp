@@ -86,6 +86,11 @@ body {
     margin: 12px 0 0 10px;
 }
 
+#header .brand a {
+    color: #000;
+    font-size: 18px;
+}
+
 #header .brand h4 {
     margin: 0;
     padding: 0;
@@ -119,6 +124,67 @@ body {
     box-shadow: 0 1px 2px rgba(0,0,0,0.5);
     border-radius: 2px 2px;
     font-size: 18px;
+}
+
+.room-container {
+    padding-bottom: 55px;
+}
+
+.message {
+    clear: both;
+    overflow: hidden;
+    font-size
+}
+
+.message .meta {
+    margin: 0 0 10px 0;
+    padding: 5px 10px 5px 10px;
+    background: #FFF;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    border-radius: 2px 2px;
+    height: 100%;
+    width: 83%;
+    font-size: 14px;
+}
+
+.message .meta .text {
+    word-wrap: break-word;
+}
+
+.message .meta .username {
+    font-weight: 700;
+}
+
+.message .small-thumb img {
+    border: 1px solid #c6cbc5;
+    border-radius: 2px 2px;
+    width: 50px;
+    height: 50px;
+}
+
+.message.recv .small-thumb {
+    float: left;
+}
+.message.recv .meta {
+    float: right;
+}
+
+.message.reply .meta {
+    float: left;
+}
+.message.reply .small-thumb {
+    float: right;
+}
+
+.controls {
+    padding: 10px 5px 10px 5px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #FFF;
+    border-top: 1px solid #c6cbc5;
+    width: 100%;
+    height: 55px;
 }
 
 /* Landscape layout (with min-width) */
