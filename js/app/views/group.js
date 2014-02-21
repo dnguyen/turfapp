@@ -42,6 +42,7 @@ define([
 			});
 			var messageItemView = new MessageItemView({ model: messageItemModel });
 			$('.messages').append(messageItemView.render().el);
+
 			window.scrollTo(0, document.body.scrollHeight);
 		},
 

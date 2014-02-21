@@ -13,15 +13,15 @@ define([
 		socket = namespace.socket;
 
 	function formatMessage(message) {
-		console.log('formatting: ' + message);
+		//console.log('formatting: ' + message);
 		if (validator.isURL(message)) {
-			console.log('isurl');
+			//console.log('isurl');
 			var fileExt = message.split('.').pop();
 			if (fileExt === 'jpg' || fileExt === 'jpeg' || fileExt === 'png' || fileExt === 'gif') {
-				console.log('File extension: ' + fileExt);
-				return '<div class="medium-thumb"><a href="' + message + '" target="_system"><img src="' + message +'"/></a></div>';
+				//console.log('File extension: ' + fileExt);
+				return '<div class="medium-thumb"><a class="ext-url" href="' + message + '" target="_system"><img src="' + message +'"/></a></div>';
 			} else {
-				return '<a href="' + message + '">' + message + '</a>';
+				return '<a class="ext-url" href="' + message + '">' + message + '</a>';
 			}
 		} else {
 			return message;
@@ -49,11 +49,11 @@ define([
 					that.model.get('members').add(newUserModel);
 				});
 				_.each(data.attributes.messages, function(message) {
-					console.group('formatting ' + message.message);
+					//console.group('formatting ' + message.message);
 
-					console.log(validator.isURL(message.message));
+					//console.log(validator.isURL(message.message));
 					//console.log('after replace: ' + message.message.replace(' ', ''));
-					console.groupEnd();
+					//console.groupEnd();
 					var newMessageModel = new Backbone.Model({
 						type: (message.user.uid === userData.uid) ? 'reply' : 'recv',
 						username: message.user.username,
@@ -125,6 +125,9 @@ define([
 			var groupView = new GroupView({ model : this.model });
 			groupView.controller = this;
 			TurfApp.content.show(groupView);
+		},
+
+		onShow: function() {
 		},
 
 		onClose: function() {
