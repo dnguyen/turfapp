@@ -9,7 +9,16 @@ require.config({
         text : "../lib/requirejs-text/text",
         'jquery.bootstrap' : "../lib/bootstrap.min",
         'socket.io' : '../lib/socket.io/node_modules/socket.io-client/dist/socket.io.min',
-        validator: '../lib/validator/validator.min'
+        validator: '../lib/validator/validator.min',
+        async: '../lib/requirejs-plugins/src/async',
+        font: '../lib/requirejs-plugins/src/font',
+        goog: '../lib/requirejs-plugins/src/goog',
+        image: '../lib/requirejs-plugins/src/image',
+        json: '../lib/requirejs-plugins/src/json',
+        noext: '../lib/requirejs-plugins/src/noext',
+        mdown: '../lib/requirejs-plugins/src/mdown',
+        propertyParser : '../lib/requirejs-plugins/src/propertyParser',
+        markdownConverter : '../lib/requirejs-plugins/src/Markdown.Converter'
     },
     shim : {
         jquery : {
@@ -44,6 +53,10 @@ require.config({
         marionette : {
             deps : ['backbone.wreqr', 'backbone.babysitter'],
             exports : 'Marionette'
+        },
+
+        openlayers : {
+            exports : 'OpenLayers'
         }
     }
 }, require(["TurfApp"], function(TurfApp) {

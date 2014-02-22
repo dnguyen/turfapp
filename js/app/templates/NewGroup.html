@@ -1,0 +1,41 @@
+
+<form role="form" onsubmit='return false;'>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Create a New Group</h3>
+			<div class="form-group">
+				<label for="name">Name</label>
+				<input type="text" class="form-control" id="name" placeholder="Enter group name">
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-8">
+			<div class="form-group">
+				<label for="radius">Radius</label>
+				<input type="text" class="form-control" id="radius" placeholder="Enter a radius">
+			</div>
+		</div>
+
+		<div class="col-xs-4">
+			<div class="form-group">
+				<label for="units">Units</label>
+				<select id="units" class="form-control">
+					<option value="ft">Feet</option>
+					<option value="m">Meters</option>
+					<option value="mi">Miles</option>
+					<option value="km">Kilometers</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div id="map" class="map">
+			</div>
+			<a class="create btn btn-primary btn-lg btn-block">Create</a>
+		</div>
+	</div>
+</form>

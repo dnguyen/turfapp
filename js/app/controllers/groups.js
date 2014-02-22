@@ -12,6 +12,7 @@ define([
 	var GroupsController = Marionette.Controller.extend({
 		initialize: function() {
 			console.group("Initializing new GroupsController");
+			TurfApp.vent.trigger('header:changeTitle', 'Turf');
 			TurfApp.vent.trigger('startLoadingView');
 
 			TurfApp.vent.on("groups:geolocationSuccess", this.successfulGeolocation, this);

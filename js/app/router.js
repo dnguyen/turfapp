@@ -9,7 +9,8 @@ define([
 			'register' : 'registerPage',
 			'logout' : 'logout',
 			'groups' : 'groupsPage',
-			'group/*id' : 'groupPage'
+			'group/*id' : 'groupPage',
+			'newgroup' : 'newGroupPage'
 		}
 	});
 	return MainRouter;

@@ -65,6 +65,13 @@ define([
 			});
 		},
 
+		newGroupPage: function() {
+			var newGroupControllerRoute = require(['controllers/newGroupController'], function(NewGroupController) {
+				var groupController = new NewGroupController();
+				//groupController.render();
+			});
+		},
+
 		loginPage: function() {
 			var AuthControllerRoute = require(['controllers/auth'], function(AuthController) {
 				var authController = new AuthController();
