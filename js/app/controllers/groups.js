@@ -35,6 +35,7 @@ define([
 		onClose: function() {
 			console.log('Closing GroupsController');
 			TurfApp.vent.off('groups:geolocationSuccess');
+			TurfApp.vent.off('groups:joinGroup');
 		},
 
 		joinGroup: function(data) {

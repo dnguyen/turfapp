@@ -9,6 +9,7 @@ define([
 			'register' : 'registerPage',
 			'logout' : 'logout',
 			'groups' : 'groupsPage',
+			'group/*id/info' : 'groupInfoPage',
 			'group/*id' : 'groupPage',
 			'newgroup' : 'newGroupPage'
 		}

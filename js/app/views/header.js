@@ -6,8 +6,9 @@ define([
 	'marionette',
 	'jquery.bootstrap',
 	'text!../templates/Header.html',
-	'text!../templates/HeaderGroup.html'
-], function(namespace, _, $, Backbone, Marionette, Bootstrap, HeaderTemplate, HeaderGroupTemplate) {
+	'text!../templates/HeaderGroup.html',
+	'text!../templates/HeaderGroupInfo.html'
+], function(namespace, _, $, Backbone, Marionette, Bootstrap, HeaderTemplate, HeaderGroupTemplate, HeaderGroupInfoTemplate) {
 
 	var TurfApp = namespace.app;
 
@@ -26,6 +27,8 @@ define([
 
 			if (page === 'group') {
 				return _.template(HeaderGroupTemplate);
+			} else if (page === 'groupinfo') {
+				return _.template(HeaderGroupInfoTemplate);
 			} else {
 				return _.template(HeaderTemplate);
 			}

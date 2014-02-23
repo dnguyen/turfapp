@@ -98,7 +98,12 @@ define([
 			});
 			$.when(groupDataReq).then(function(group) {
 
-				TurfApp.vent.trigger('renderActionBar', { title: group.name, page : 'group' });
+				TurfApp.vent.trigger('renderActionBar', {
+					title: group.name,
+					page : 'group',
+					groupid: group.id
+				});
+
 				socket.emit('join_room', {
 					groupid: group.id,
 					uid: JSON.parse(localStorage.getItem('userData')).uid

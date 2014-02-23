@@ -15,6 +15,10 @@ define([
 				page: data.page
 			});
 
+			if (data.page === 'group' || data.page === 'groupinfo') {
+				this.model.set('groupid', data.groupid);
+			}
+
 			var headerView = new HeaderView({ model: this.model });
 			TurfApp.header.show(headerView);
 		}

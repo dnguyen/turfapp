@@ -67,6 +67,12 @@ define([
 			});
 		},
 
+		groupInfoPage: function(id) {
+			var groupinfo = require(['controllers/groupinfo'], function(GroupInfoController) {
+				var groupinfoController = new GroupInfoController({ id: id });
+			});
+		},
+
 		newGroupPage: function() {
 			var newGroupControllerRoute = require(['controllers/newGroupController'], function(NewGroupController) {
 				var groupController = new NewGroupController();
