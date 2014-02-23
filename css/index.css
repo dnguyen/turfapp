@@ -81,6 +81,15 @@ body {
     height: 16px;
 }
 
+#header .Back {
+    margin: 13px 0 0 0;
+    float: left;
+}
+
+#header .Back img {
+    width: 20px;
+}
+
 #header .brand {
     float: left;
     margin: 12px 0 0 10px;

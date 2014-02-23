@@ -48,6 +48,8 @@ define([
 		},
 
 		groupsPage: function() {
+
+			TurfApp.vent.trigger('renderActionBar', { page: 'groups' });
 			var groupsControllerRoute = require(['controllers/groups'], function(GroupsController) {
 				console.group('groupsPage Route');
 				console.groupEnd();

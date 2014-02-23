@@ -1,16 +1,17 @@
 define([
 	'namespace',
+	'underscore',
 	'jquery',
 	'backbone',
 	'marionette',
 	'jquery.bootstrap',
-	'text!../templates/Header.html'
-], function(namespace, $, Backbone, Marionette, Bootstrap, HeaderTemplate) {
+	'text!../templates/Header.html',
+	'text!../templates/HeaderGroup.html'
+], function(namespace, _, $, Backbone, Marionette, Bootstrap, HeaderTemplate, HeaderGroupTemplate) {
 
 	var TurfApp = namespace.app;
 
 	var HeaderView = Backbone.Marionette.ItemView.extend({
-		template: _.template(HeaderTemplate),
 		events: {
 			'touchstart .Menu' : 'openMenu',
 			'touchstart .Settings' : 'openSettingsMenu'
@@ -18,6 +19,16 @@ define([
 
 		initialize: function() {
 			TurfApp.vent.on('header:changeTitle', this.changeTitle, this);
+		},
+
+		getTemplate: function() {
+			var page = this.model.get('page');
+
+			if (page === 'group') {
+				return _.template(HeaderGroupTemplate);
+			} else {
+				return _.template(HeaderTemplate);
+			}
 		},
 
 		onShow:function() {

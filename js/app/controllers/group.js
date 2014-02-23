@@ -49,11 +49,6 @@ define([
 					that.model.get('members').add(newUserModel);
 				});
 				_.each(data.attributes.messages, function(message) {
-					//console.group('formatting ' + message.message);
-
-					//console.log(validator.isURL(message.message));
-					//console.log('after replace: ' + message.message.replace(' ', ''));
-					//console.groupEnd();
 					var newMessageModel = new Backbone.Model({
 						type: (message.user.uid === userData.uid) ? 'reply' : 'recv',
 						username: message.user.username,
@@ -102,6 +97,8 @@ define([
 				dataType: 'JSON'
 			});
 			$.when(groupDataReq).then(function(group) {
+
+				TurfApp.vent.trigger('renderActionBar', { title: group.name, page : 'group' });
 				socket.emit('join_room', {
 					groupid: group.id,
 					uid: JSON.parse(localStorage.getItem('userData')).uid
@@ -139,7 +136,6 @@ define([
 		sendMessage: function(data) {
 			console.group('sending message');
 			console.log(data);
-			console.log(this);
 			console.groupEnd();
 
 			socket.emit('send_message', {

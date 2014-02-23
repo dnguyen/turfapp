@@ -25,6 +25,10 @@ define([
 		TurfApp.loadingView.close();
 	});
 
+	TurfApp.vent.on('renderActionBar', function(data) {
+		TurfApp.headerController.render(data);
+	});
+
 	socket.on('connect_', function(data) {
 		console.log('connect_');
 		alert(data);
@@ -45,8 +49,8 @@ define([
 	TurfApp.addInitializer(function() {
 		console.log("Initializer");
 
-		var headerController = new HeaderController();
-		headerController.render();
+		TurfApp.headerController = new HeaderController();
+		TurfApp.headerController.render({ title: 'Turf', page: 'groups' });
 
 		TurfApp.Router = new MainRouter({
 			controller: new MainController()
