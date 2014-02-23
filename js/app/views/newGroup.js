@@ -1,16 +1,52 @@
 define([
+	'namespace',
 	'jquery',
 	'underscore',
 	'backbone',
 	'marionette',
+	'validator',
 	'async!http://maps.google.com/maps/api/js?sensor=true',
 	'text!../templates/NewGroup.html'
-], function($, _, Backbone, Marionette, googleapi, NewGroupTemplate) {
+], function(namespace, $, _, Backbone, Marionette, validator, googleapi, NewGroupTemplate) {
+
+	function unitsConversion(input, unit) {
+
+		switch (unit) {
+			case 'ft':
+				input /= 3.28084;
+				break;
+			case 'mi':
+				input *= 1609.34;
+				break;
+			case 'km':
+				input *= 1000;
+		}
+
+		return input;
+	}
+
+	function validateName(name) {
+		if (name !== '' && name.length <= 50 && name.length > 0 ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	function validateRadius(radius) {
+		if (radius !== '' && validator.isNumeric(radius) && radius > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	var NewGroupView = Backbone.Marionette.ItemView.extend({
 		template: _.template(NewGroupTemplate),
 		events: {
 			'click .create' : 'createGroup',
+			'blur #name' : 'blurName',
+			'blur #radius' : 'blurRadius',
 			'keyup #radius' : 'changedRadius'
 		},
 
@@ -25,7 +61,7 @@ define([
 					disableDefaultUI: true,
 					draggable: false
 				};
-			console.log(document.getElementById('map'));
+
 			var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 			/*var marker = new google.maps.Marker({
 				position: position,
@@ -56,27 +92,70 @@ define([
 			var radiusInput =  $('#radius').val(),
 				unitsInput = $('#units').val();
 
-			// do unit conversion to meters
-			switch (unitsInput) {
-				case 'ft':
-					radiusInput /= 3.28084;
-					break;
-				case 'mi':
-					radiusInput *= 1609.34;
-					break;
-				case 'km':
-					radiusInput *= 1000;
-			}
-
-			// Redraw the radiuds circle on the map
-			console.log(radiusInput + ' in ' + unitsInput);
 			this.mapObj.circle.setMap(null);
-			this.mapObj.circle.radius = parseInt(radiusInput);
+			this.mapObj.circle.radius = parseInt(unitsConversion(radiusInput, unitsInput));
 			this.mapObj.circle.setMap(this.mapObj.map);
 		},
 
-		createGroup: function(e) {
+		blurName: function(e) {
+			var target = $(e.currentTarget);
 
+			if (!validateName(target.val())) {
+				target.parent().addClass('has-error');
+			} else {
+				$('.name-alert').remove();
+				target.parent().removeClass('has-error');
+				target.parent().addClass('has-success');
+			}
+		},
+
+		blurRadius: function(e) {
+			var target = $(e.currentTarget);
+
+			if (!validateRadius(target.val())) {
+				target.parent().addClass('has-error');
+			} else {
+				$('.radius-alert').remove();
+				target.parent().removeClass('has-error');
+				target.parent().addClass('has-success');
+			}
+		},
+
+		createGroup: function(e) {
+			var nameInput = $('#name').val(),
+				radiusInput = $('#radius').val(),
+				unitsInput = $('#units').val(),
+				errors = false;
+
+			$('.errors').children().remove();
+
+			if (!validateName(nameInput)) {
+				errors = true;
+				$('.errors').append('<div class="name-alert alert alert-danger">You must enter a group name less than 50 characters.</div>');
+			}
+
+			if (!validateRadius(radiusInput)) {
+				errors = true;
+				$('.errors').append('<div class="radius-alert alert alert-danger">You must enter a radius greater than 0.</div>');
+			}
+
+			if (!errors) {
+				var createReq = $.ajax({
+					type: 'POST',
+					url: namespace.config.server + 'api/groups',
+					data: {
+						uid: JSON.parse(localStorage.getItem('userData')).uid,
+						name: nameInput,
+						latitude: this.model.get('latitude'),
+						longitude: this.model.get('longitude'),
+						radius: unitsConversion(radiusInput, unitsInput)
+					}
+				});
+
+				$.when(createReq).then(function(data) {
+					window.location = '#/group/' + data.groupid;
+				});
+			}
 		}
 	});
 
